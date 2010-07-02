@@ -10,11 +10,11 @@ Icon::Theme::Index::Parse - Parse the index file for Freedesktop compatible icon
 
 =head1 VERSION
 
-Version 0.0.0
+Version 0.0.1
 
 =cut
 
-our $VERSION = '0.0.0';
+our $VERSION = '0.0.1';
 
 
 =head1 SYNOPSIS
@@ -143,7 +143,7 @@ sub comment{
 	my $method='comment';
 
 	if (!$self->errorblank) {
-		warn($self->{module}.' '.$method.': A parmanent error is set');
+ 		warn($self->{module}.' '.$method.': A parmanent error is set');
 	}
 
 	#makes sure it is defined
@@ -537,8 +537,16 @@ sub inherits{
 		warn($self->{module}.' '.$method.': A parmanent error is set');
 	}
 
+	#what will be returned
+	my @inherits;
+	
 	#split the directories apart at the
-	my @inherits=split(/\,/, $self->{ini}{'Icon Theme'}{Inherits});
+	if (defined( $self->{ini}{'Icon Theme'}{Inherits} )) {
+		@inherits=split(/\,/, $self->{ini}{'Icon Theme'}{Inherits});
+	}
+
+	#use Data::Dumper;
+	#print Dumper($self);
 
 	return @inherits;
 }
